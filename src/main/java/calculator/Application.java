@@ -1,7 +1,23 @@
 package calculator;
 
+import calculator.domain.Calculator;
+import calculator.ui.InputView;
+import calculator.ui.OutputView;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        InputView inputView = new InputView();
+        OutputView outputView = new OutputView();
+        Calculator calculator = new Calculator();
+        try {
+            outputView.printPrompt();
+            String input = inputView.readInput();
+
+            int result = calculator.add(input);
+
+            outputView.printResult(result);
+        } catch (IllegalArgumentException e) {
+            outputView.printError(e.getMessage());
+        }
     }
 }
