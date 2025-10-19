@@ -7,6 +7,10 @@ public class Calculator {
         String numbersPart = input;
         String delimiters = DEFAULT_DELIMITERS;
 
+        if(input.isEmpty()){
+            return 0;
+        }
+
         if (input.startsWith("//")) {
             int newlineIndex = input.indexOf("\\n");
             if (newlineIndex == -1) {
