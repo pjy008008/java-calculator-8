@@ -1,5 +1,7 @@
 package calculator.domain;
 
+import java.util.regex.Pattern;
+
 public class Calculator {
     private static final String DEFAULT_DELIMITERS = ",|:";
     public int add(String input) {
@@ -29,7 +31,7 @@ public class Calculator {
             }
 
             numbersPart = input.substring(newlineIndex + 2);
-            delimiters = delimiters + "|" + customDelimiter;
+            delimiters = delimiters + "|" + Pattern.quote(String.valueOf(customDelimiter));
         }
 
         String[] numberTokens = numbersPart.split(delimiters);
