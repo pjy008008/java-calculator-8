@@ -1,7 +1,5 @@
 package calculator.domain;
 
-import java.util.regex.Pattern;
-
 public class Parser {
     private static final String DEFAULT_DELIMITERS = ",|:";
 
@@ -20,7 +18,9 @@ public class Parser {
             validateDelimiterIsNotDigit(customDelimiter);
 
             numbersPart = input.substring(newlineIndex + 2);
-            delimiters = delimiters + "|" + Pattern.quote(String.valueOf(customDelimiter));
+
+            String literalDelimiter = "\\Q" + customDelimiter + "\\E";
+            delimiters = delimiters + "|" + literalDelimiter;
         }
         return numbersPart.split(delimiters);
     }
