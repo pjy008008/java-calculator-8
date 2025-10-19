@@ -43,8 +43,8 @@ public class Calculator {
             try {
                 int number = Integer.parseInt(token);
 
-                if (number < 0) {
-                    throw new IllegalArgumentException("음수는 포함될 수 없습니다.");
+                if (number <= 0) {
+                    throw new IllegalArgumentException("음수 또는 0은 포함될 수 없습니다.");
                 }
                 sum += number;
             } catch (NumberFormatException e) {
