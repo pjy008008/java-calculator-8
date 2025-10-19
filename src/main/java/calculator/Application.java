@@ -9,15 +9,12 @@ public class Application {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
         Calculator calculator = new Calculator();
-        try {
-            outputView.printPrompt();
-            String input = inputView.readInput();
 
-            int result = calculator.add(input);
+        outputView.printPrompt();
+        String input = inputView.readInput();
 
-            outputView.printResult(result);
-        } catch (IllegalArgumentException e) {
-            outputView.printError(e.getMessage());
-        }
+        int result = calculator.add(input);
+
+        outputView.printResult(result);
     }
 }
