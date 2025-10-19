@@ -11,24 +11,35 @@ public class Parser {
 
         if (input.startsWith("//")) {
             int newlineIndex = input.indexOf("\\n");
-            if (newlineIndex == -1) {
-                throw new IllegalArgumentException("커스텀 구분자 형식 오류: `\\n`이 들어가야 합니다.");
-            }
+            validateHeaderTerminator(newlineIndex);
 
             String delimiterPart = input.substring(2, newlineIndex);
+            validateDelimiterLength(delimiterPart);
 
-            if (delimiterPart.length() != 1) {
-                throw new IllegalArgumentException("커스텀 구분자는 한 글자여야 합니다.");
-            }
             char customDelimiter = delimiterPart.charAt(0);
-
-            if (Character.isDigit(customDelimiter)) {
-                throw new IllegalArgumentException("커스텀 구분자는 숫자일 수 없습니다.");
-            }
+            validateDelimiterIsNotDigit(customDelimiter);
 
             numbersPart = input.substring(newlineIndex + 2);
             delimiters = delimiters + "|" + Pattern.quote(String.valueOf(customDelimiter));
         }
         return numbersPart.split(delimiters);
+    }
+
+    private static void validateHeaderTerminator(int newlineIndex) {
+        if (newlineIndex == -1) {
+            throw new IllegalArgumentException("커스텀 구분자 형식 오류: `\\n`이 들어가야 합니다.");
+        }
+    }
+
+    private static void validateDelimiterLength(String delimiterPart) {
+        if (delimiterPart.length() != 1) {
+            throw new IllegalArgumentException("커스텀 구분자는 한 글자여야 합니다.");
+        }
+    }
+
+    private static void validateDelimiterIsNotDigit(char customDelimiter) {
+        if (Character.isDigit(customDelimiter)) {
+            throw new IllegalArgumentException("커스텀 구분자는 숫자일 수 없습니다.");
+        }
     }
 }
